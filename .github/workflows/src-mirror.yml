@@ -2,6 +2,8 @@ name: src-mirror
 
 on:
   push:
+    tags:        
+      - '*'
 
 jobs:
   zip-and-upload:
@@ -13,7 +15,7 @@ jobs:
         with:
           git-ref: ${{ github.ref_name }}
           git-fetch-depth: '0'
-          path: 'workspace/nrf'
+          path: 'workspace/applicationsource'
           west-update-args: '--group-filter=+babblesim'
           artifactory-url: 'https://eu.files.nordicsemi.com/artifactory'
           artifactory-repository: 'ncs-src-mirror'
