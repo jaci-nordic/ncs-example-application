@@ -19,7 +19,6 @@ jobs:
           west-update-args: '--group-filter=+babblesim'
           artifactory-url: 'https://eu.files.nordicsemi.com/artifactory'
           artifactory-repository: 'ncs-src-mirror'
-          artifactory-target-prefix: 'external/jacitest'
+          artifactory-target-prefix: 'external/ncs-example-application'
           artifactory-user: ${{ secrets.COM_NORDICSEMI_FILES_USERNAME }}
           artifactory-pass: ${{ secrets.COM_NORDICSEMI_FILES_PASSWORD }}
-          
