@@ -1,40 +1,31 @@
-name: src-mirror
+name: Push test
 
 on:
   workflow_dispatch:
-    inputs:
-      git-ref:
-        description: 'Branch, tag or SHA to checkout'
-        required: true
-        default: 'main'
   push:
-    tags:
-      - '*'
-  pull_request:
-    types:
-      - opened
-      - synchronize
-    paths:
-      - .github/workflows/src-mirror.yml
-
-concurrency:
-  group: src-mirror-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
+  upload-test-file:
+    runs-on: ubuntu-22.04
 
-  # Tar entire project west workspace, prune, and upload to artifact service.
-  standard:
-    runs-on: ubuntu-24.04-16cores
     steps:
-      - name: Upload src.tar.gz
-        uses: nrfconnect/action-src-mirror@main
-        with:
-          path: 'ncs-example-application'
-          west-update-args: ''
-          artifactory-path: >-
-            ${{ (github.ref_type != 'tag') &&
-              format('ncs-src-mirror/internal/{0}/{1}/src.tar.gz', github.event.repository.name, github.ref_name) ||
-              format('ncs-src-mirror/external/{0}/{1}/src.tar.gz', github.event.repository.name, github.ref_name) }}
-          artifactory-user: ${{ secrets.COM_NORDICSEMI_FILES_USERNAME }}
-          artifactory-pass: ${{ secrets.COM_NORDICSEMI_FILES_PASSWORD }}
+      - name: Set up JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4.5.11
+
+      - name: Create test file
+        run: |
+          echo "testing" > test.txt
+
+      - name: Verify Artifactory credentials
+        run: |
+          jfrog rt ping \
+            --url="${{ secrets.ARTIFACTORY_URL }}" \
+            --user="${{ secrets.COM_NORDICSEMI_FILES_USERNAME }}" \
+            --password="${{ secrets.COM_NORDICSEMI_FILES_PASSWORD }}"
+
+      - name: Upload to Artifactory
+        run: |
+          jfrog rt u test.txt ncs-src-mirror/internal/test.txt \
+            --url="${{ secrets.ARTIFACTORY_URL }}" \
+            --user="${{ secrets.COM_NORDICSEMI_FILES_USERNAME }}" \
+            --password="${{ secrets.COM_NORDICSEMI_FILES_PASSWORD }}"
