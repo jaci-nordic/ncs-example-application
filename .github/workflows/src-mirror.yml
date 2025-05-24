@@ -19,13 +19,13 @@ jobs:
       - name: Verify Artifactory credentials
         run: |
           jfrog rt ping \
-            --url="${{ secrets.ARTIFACTORY_URL }}" \
+            --url=https://eu.files.nordicsemi.com/artifactory \
             --user="${{ secrets.COM_NORDICSEMI_FILES_USERNAME }}" \
             --password="${{ secrets.COM_NORDICSEMI_FILES_PASSWORD }}"
 
       - name: Upload to Artifactory
         run: |
           jfrog rt u test.txt ncs-src-mirror/internal/test.txt \
-            --url="${{ secrets.ARTIFACTORY_URL }}" \
+            --url=https://eu.files.nordicsemi.com/artifactory \
             --user="${{ secrets.COM_NORDICSEMI_FILES_USERNAME }}" \
             --password="${{ secrets.COM_NORDICSEMI_FILES_PASSWORD }}"
