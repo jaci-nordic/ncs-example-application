@@ -12,7 +12,7 @@
 <a href="https://nrfconnect.github.io/ncs-example-application/doxygen">
   <img alt="API Documentation" src="https://img.shields.io/badge/API-documentation-3D578C?logo=c&logoColor=white">
 </a>
-
+asdf
 This repository contains an nRF Connect SDK example application. The main
 purpose of this repository is to serve as a reference on how to structure nRF Connect
 SDK based applications. Some of the features demonstrated in this example are:
