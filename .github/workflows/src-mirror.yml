@@ -25,7 +25,7 @@ jobs:
 
   # Tar entire project west workspace, prune, and upload to artifact service.
   standard:
-    runs-on: ubuntu-24.04-16cores
+    runs-on: ubuntu-24.04
     steps:
       - name: Upload src.tar.gz
         uses: nrfconnect/action-src-mirror@main
