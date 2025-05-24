@@ -30,7 +30,7 @@ jobs:
       - name: Upload src.tar.gz
         uses: nrfconnect/action-src-mirror@main
         with:
-          path: 'ncs-bm'
+          path: 'ncs-example-application'
           west-update-args: ''
           artifactory-path: >-
             ${{ (github.ref_type != 'tag') &&
