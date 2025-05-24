@@ -11,11 +11,7 @@ on:
     tags:
       - '*'
   pull_request:
-    types:
-      - opened
-      - synchronize
-    paths:
-      - .github/workflows/src-mirror.yml
+
 
 concurrency:
   group: src-mirror-${{ github.ref }}
